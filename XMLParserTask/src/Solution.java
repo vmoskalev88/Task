@@ -36,7 +36,7 @@ public class Solution {
             if (file.isDirectory())
                 fileProcessing(file);                               // Если найденный элемент каталог, то ищем в нем файлы
 
-            else {                                                  // иначе парсим файл
+            else if (file.getName().endsWith(".xml")) {              // иначе парсим xml файл
                 String currentFile = file.getAbsolutePath();
 
                 new ParseXML().parseXML(currentFile);

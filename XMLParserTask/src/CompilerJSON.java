@@ -2,12 +2,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CompileJSON {
+public class CompilerJSON {
 
     /**
      * Генерируем .json файл  из листа объектов в папку нашего проекта
      */
-    public void writeToJSON(ArrayList<IObject> list) throws IOException {
+    public static void writeToJSON(ArrayList<IObject> list) throws IOException {
         // Проверка листа, что в нем есть хотя бы 1 элемент
         if (list.size() < 1) {
             System.out.println("Лист iObjects с элементами пуст!");

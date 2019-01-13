@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 
-public class ParseXML {
+public class ParserXML {
     /**
      * Метод для обработки XML файла.
      * <p>
@@ -17,7 +17,7 @@ public class ParseXML {
      *
      * @param currentFile - полный путь к XML файлу
      */
-    public void parseXML(String currentFile) throws ParserConfigurationException {
+    public static void parseXML(String currentFile) throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -36,7 +36,9 @@ public class ParseXML {
                 if (iObject.getParentNode().getNodeName().equals("EnumEnum")) {
                     NamedNodeMap attributes = iObject.getAttributes();
 
-                    Solution.iObjects.add(new IObject(attributes.getNamedItem("UID").getNodeValue(), attributes.getNamedItem("Name").getNodeValue()));
+//                    Solution.iObjects.add(new IObject(attributes.getNamedItem("UID").getNodeValue(), attributes.getNamedItem("Name").getNodeValue()));
+                    Solution.addToIObjectsList(new IObject(attributes.getNamedItem("UID").getNodeValue(),
+                                                     attributes.getNamedItem("Name").getNodeValue()));
                 }
             }
         } catch (Exception e) {

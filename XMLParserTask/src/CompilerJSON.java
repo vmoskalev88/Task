@@ -1,5 +1,4 @@
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CompilerJSON {
@@ -7,7 +6,7 @@ public class CompilerJSON {
     /**
      * Генерируем .json файл  из листа объектов в папку нашего проекта
      */
-    public static void writeToJSON(ArrayList<IObject> list) throws IOException {
+    public static void writeToJSON(ArrayList<IObject> list) {
         // Проверка листа, что в нем есть хотя бы 1 элемент
         if (list.size() < 1) {
             System.out.println("Лист iObjects с элементами пуст!");
@@ -15,9 +14,7 @@ public class CompilerJSON {
         }
 
         // Открываем поток, создаем файл куда будем записывать строки
-        FileWriter writer = new FileWriter("IObject_attributes.json");
-
-        try {
+        try (FileWriter writer = new FileWriter("IObject_attributes.json")) {
             // Ниже идет пацанская генерация, согласно JSON формату
             writer.write("{\"response\":[");
 
@@ -34,11 +31,8 @@ public class CompilerJSON {
             }
 
             writer.write("]}");
-            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            writer.close();
         }
     }
 }

@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.nio.file.Path;
 
 public class ParserXML {
     /**
@@ -17,13 +18,13 @@ public class ParserXML {
      *
      * @param currentFile - полный путь к XML файлу
      */
-    public static void parseXML(String currentFile) throws ParserConfigurationException {
+    public static void parseXML(Path currentFile) throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder builder = factory.newDocumentBuilder();
 
         try {
-            Document document = builder.parse(new File(currentFile));
+            Document document = builder.parse(new File(currentFile.toString()));
 
             // Ищем элементы по тегу
             NodeList iObjectElements = document.getDocumentElement().getElementsByTagName("IObject");
@@ -36,9 +37,8 @@ public class ParserXML {
                 if (iObject.getParentNode().getNodeName().equals("EnumEnum")) {
                     NamedNodeMap attributes = iObject.getAttributes();
 
-//                    Solution.iObjects.add(new IObject(attributes.getNamedItem("UID").getNodeValue(), attributes.getNamedItem("Name").getNodeValue()));
-                    Solution.addToIObjectsList(new IObject(attributes.getNamedItem("UID").getNodeValue(),
-                                                     attributes.getNamedItem("Name").getNodeValue()));
+                    Solution.getIObjects().add(new IObject(attributes.getNamedItem("UID").getNodeValue(),
+                            attributes.getNamedItem("Name").getNodeValue()));
                 }
             }
         } catch (Exception e) {
